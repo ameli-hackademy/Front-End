@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>
+        Ameli
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{%static "css/material-dashboard.css" %}">
+    <link rel="stylesheet" href="{%static "css/demo.css" %}">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <style type="text/css">
+
+
+        .ct-chart {
+            position: relative;
+        }
+
+
+        .card [class*="card-header-"] .ct-chart .ct-series-a .ct-point, .card [class*="card-header-"] .ct-chart .ct-series-a .ct-line, .card [class*="card-header-"] .ct-chart .ct-series-a .ct-bar, .card [class*="card-header-"] .ct-chart .ct-series-a .ct-slice-donut {
+            stroke: #d70206;
+        }
+
+        .card [class*="card-header-"] .ct-chart .ct-series-d .ct-point, .card [class*="card-header-"] .ct-chart .ct-series-d .ct-line, .card [class*="card-header-"] .ct-chart .ct-series-d .ct-bar, .card [class*="card-header-"] .ct-chart .ct-series-d .ct-slice-donut {
+            stroke: #d17905;
+        }
+
+        .ct-legend {
+            position: relative;
+            z-index: 10;
+            list-style: none;
+            text-align: center;
+        }
+
+        .ct-legend li {
+            position: relative;
+            padding-left: 23px;
+            margin-right: 10px;
+            margin-bottom: 3px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .ct-legend li:before {
+            width: 12px;
+            height: 12px;
+            position: absolute;
+            left: 0;
+            content: '';
+            border: 3px solid transparent;
+            border-radius: 2px;
+        }
+
+        .ct-legend li.inactive:before {
+            background: transparent;
+        }
+
+        .ct-legend.ct-legend-inside {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .ct-legend.ct-legend-inside li {
+            display: block;
+            margin: 0;
+        }
+
+        .ct-legend .ct-series-0:before {
+            background-color: #d70206;
+            border-color: #d70206;
+        }
+
+        .ct-legend .ct-series-1:before {
+            background-color: #f05b4f;
+            border-color: #f05b4f;
+        }
+
+        .ct-legend .ct-series-2:before {
+            background-color: #f4c63d;
+            border-color: #f4c63d;
+        }
+
+        .ct-legend .ct-series-3:before {
+            background-color: #d17905;
+            border-color: #d17905;
+        }
+
+        .ct-legend .ct-series-4:before {
+            background-color: #453d3f;
+            border-color: #453d3f;
+        }
+
+        .ct-chart-line-multipleseries .ct-legend .ct-series-0:before {
+            background-color: #d70206;
+            border-color: #d70206;
+        }
+
+        .ct-chart-line-multipleseries .ct-legend .ct-series-1:before {
+            background-color: #f4c63d;
+            border-color: #f4c63d;
+        }
+
+        .ct-chart-line-multipleseries .ct-legend li.inactive:before {
+            background: transparent;
+        }
+
+        .crazyPink li.ct-series-0:before {
+            background-color: #C2185B;
+            border-color: #C2185B;
+        }
+
+        .crazyPink li.ct-series-1:before {
+            background-color: #E91E63;
+            border-color: #E91E63;
+        }
+
+        .crazyPink li.ct-series-2:before {
+            background-color: #F06292;
+            border-color: #F06292;
+        }
+
+        .crazyPink li.inactive:before {
+            background-color: transparent;
+        }
+
+        .crazyPink ~ svg .ct-series-a .ct-line, .crazyPink ~ svg .ct-series-a .ct-point {
+            stroke: #C2185B;
+        }
+
+        .crazyPink ~ svg .ct-series-b .ct-line, .crazyPink ~ svg .ct-series-b .ct-point {
+            stroke: #E91E63;
+        }
+
+        .crazyPink ~ svg .ct-series-c .ct-line, .crazyPink ~ svg .ct-series-c .ct-point {
+            stroke: #F06292;
+        }
+
+        #any-div-anywhere {
+            border: 1px solid #5b4421;
+        }
+
+        /* Page styling */
+        h1, h2, h3, h4 {
+            color: #5b4421;
+            text-transform: uppercase;
+        }
+
+        h1, h2, h4 {
+            text-align: center;
+        }
+
+        h3, h4 > * {
+            text-transform: none;
+        }
+
+        .codeblock-hidden {
+            display: none;
+        }
+
+        .ct-hidden {
+            opacity: 0;
+        }
+
+        .ct-dimmed {
+            opacity: 0.5;
+        }
+
+        .javascript.hljs span::selection, .javascript.hljs::selection {
+            background: #2a2526 !important
+        }
+
+        .javascript.hljs .hljs-comment {
+            color: #7b6d70
+        }
+
+        .javascript.hljs .hljs-atom, .javascript.hljs .hljs-number {
+            color: #F4C63D
+        }
+
+
+        .javascript.hljs .hljs-keyword {
+            color: #F05B4F;
+            font-weight: 700
+        }
+
+        .javascript.hljs .hljs-string {
+            color: #F4C63D
+        }
+
+
+        .javascript.hljs .hljs-def, .javascript.hljs .hljs-variable-2 {
+            color: #f8b3ad
+        }
+
+        .javascript.hljs .hljs-bracket {
+            color: #3a3432
+        }
+
+        .javascript.hljs .hljs-tag {
+            color: #F05B4F;
+            font-weight: 700
+        }
+
+        .javascript.hljs .hljs-link {
+            color: #F4C63D
+        }
+
+        .javascript.hljs .hljs-error {
+            background-color: #F05B4F;
+            color: #453D3F
+        }
+
+        .javascript.hljs .hljs-literal {
+            color: #F05B4F;
+        }
+
+        .card .card-header-success .card-icon, .card .card-header-success .card-text, .card .card-header-success:not(.card-header-icon):not(.card-header-text), .card.bg-success, .card.card-rotate.bg-success .front, .card.card-rotate.bg-success .back {
+            background: linear-gradient(60deg, #fcf957, #9ea044);
+            background-image: linear-gradient(60deg, rgb(243, 243, 73), rgb(230, 233, 84));
+            background-position-x: initial;
+            background-position-y: initial;
+            background-size: initial;
+            background-repeat-x: initial;
+            background-repeat-y: initial;
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+            background-color: initial;
+        }
+
+        .card .card-header-success .card-icon, .card .card-header-success:not(.card-header-icon):not(.card-header-text), .card .card-header-success .card-text {
+            box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(243, 243, 73, 0.4);
+        }
+
+        .card .card-header-info .card-icon, .card .card-header-info .card-text, .card .card-header-info:not(.card-header-icon):not(.card-header-text), .card.bg-info, .card.card-rotate.bg-info .front, .card.card-rotate.bg-info .back {
+            background: linear-gradient(60deg, #27d4e8, #00bbd0);
+        }
+
+        .card .card-header-primary .card-icon, .card .card-header-primary .card-text, .card .card-header-primary:not(.card-header-icon):not(.card-header-text), .card.bg-primary, .card.card-rotate.bg-primary .front, .card.card-rotate.bg-primary .back {
+            background: linear-gradient(60deg, #c554b8, #b63bbb);
+        }
+
+    </style>
+</head>
+
+<body class="">
+<div class="wrapper ">
+    <div class="sidebar" data-color="orange" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+        <!--
+          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+          Tip 2: you can also add an image using data-image tag
+      -->
+        <div class="logo">
+            <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+                Ameli
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url "index" %}">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{%url "dashboard:network" %}">
+                        <i class="material-icons">people</i>
+                        <p>Network</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{%url "dashboard:suggestion" %}">
+                        <i class="material-icons">highlight</i>
+                        <p>Suggestion</p>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{%url "dashboard:insight" %}">
+                        <i class="material-icons">wb_sunny</i>
+                        <p>Insight</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{%url "dashboard:attachment" %}">
+                        <i class="material-icons">attach_file</i>
+                        <p>Attachments</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+            <div class="container-fluid">
+                <div class="navbar-wrapper">
+                    <a class="navbar-brand" href="#pablo">Dashboard</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon icon-bar"></span>
+                    <span class="navbar-toggler-icon icon-bar"></span>
+                    <span class="navbar-toggler-icon icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end">
+                    <form class="navbar-form">
+                        <div class="input-group no-border">
+                            <input type="text" value="" class="form-control" placeholder="Search...">
+                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+                    </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#pablo">
+                                <i class="material-icons">dashboard</i>
+                                <p class="d-lg-none d-md-block">
+                                    Stats
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">notifications</i>
+                                <span class="notification">5</span>
+                                <p class="d-lg-none d-md-block">
+                                    Some Actions
+                                </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Mike John responded to your email</a>
+                                <a class="dropdown-item" href="#">You have 5 new tasks</a>
+                                <a class="dropdown-item" href="#">You're now friend with Andrew</a>
+                                <a class="dropdown-item" href="#">Another Notification</a>
+                                <a class="dropdown-item" href="#">Another One</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                <i class="material-icons">person</i>
+                                <p class="d-lg-none d-md-block">
+                                    Account
+                                </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Log out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+
+        <div class="content" style="height: 90%">
+            <div class="container-fluid" style="height: 98%">
+                <div class="row" style="padding-left: 20px;padding-right: 20px;height: 50%">
+                    <div class="col-6">
+                        <div class="card" style="height: 92%">
+                            <div class="card-header" style="margin-bottom: 10px">
+                                <h4 class="card-title"><b>Keyword</b></h4>
+                            </div>
+                            <div class="card-body card-header-info">
+                                <div id="wordCloudChart" style="height: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card" style="height: 92%">
+                            <div class="card-header" style="margin-bottom: 10px">
+                                <h4 class="card-title"><b>Time spent in meeting</b></h4>
+                            </div>
+                            <div class="card-body card-header-primary">
+                                <div class="ct-chart" id="barChart" style="height: 90%;margin-left: 20px;margin-right: 20px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-left: 20px;padding-right: 20px;height: 50%">
+                    <div class="col-6">
+                        <div class="card" style="height: 92%">
+                            <div class="card-header" style="margin-bottom: 10px">
+                                <h4 class="card-title"><b>Category</b></h4>
+                            </div>
+                            <div class="card-body card-header-warning">
+                                <div id="redarChart" style="height: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card" style="height: 92%">
+                            <div class="card-header" style="margin-bottom: 10px">
+                                <h4 class="card-title"><b>Channel</b></h4>
+                            </div>
+                            <div class="card-body card-header-success">
+                                <div id="pieChart" style="height: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!--   Core JS Files   -->
+<script src="{%static "js/core/jquery.min.js" %}"></script>
+<script src="{%static "js/core/popper.min.js" %}"></script>
+<script src="{%static "js/core/bootstrap-material-design.min.js" %}"></script>
+<script src="{%static "js/plugins/perfect-scrollbar.jquery.min.js" %}"></script>
+<!-- Plugin for the momentJs  -->
+<script src="{%static "js/plugins/moment.min.js" %}"></script>
+<!--  Plugin for Sweet Alert -->
+<script src="{%static "js/plugins/sweetalert2.js" %}"></script>
+<!-- Forms Validations Plugin -->
+<script src="{%static "js/plugins/jquery.validate.min.js" %}"></script>
+<!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+<script src="{%static "js/plugins/jquery.bootstrap-wizard.js" %}"></script>
+<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+<script src="{%static "js/plugins/bootstrap-selectpicker.js" %}"></script>
+<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+<script src="{%static "js/plugins/bootstrap-datetimepicker.min.js" %}"></script>
+<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+<script src="{%static "js/plugins/jquery.dataTables.min.js" %}"></script>
+<!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+<script src="{%static "js/plugins/bootstrap-tagsinput.js" %}"></script>
+<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+<script src="{%static "js/plugins/jasny-bootstrap.min.js" %}"></script>
+<!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+<script src="{%static "js/plugins/fullcalendar.min.js" %}"></script>
+<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+<script src="{%static "js/plugins/jquery-jvectormap.js" %}"></script>
+<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+<script src="{%static "js/plugins/nouislider.min.js" %}"></script>
+<!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+<!-- Library for adding dinamically elements -->
+<script src="{%static "js/plugins/arrive.min.js" %}"></script>
+<!-- Chartist JS -->
+<script src="{%static "js/plugins/chartist.min.js" %}"></script>
+<!--  Notifications Plugin    -->
+<script src="{%static "js/plugins/bootstrap-notify.js" %}"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="{%static "js/material-dashboard.js" %}"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="{%static "js/demo.js" %}"></script>
+
+
+<script>
+    $(document).ready(function () {
+        // Javascript method's body can be found in assets/js/demos.js
+        md.initDashboardPageCharts();
+    });
+</script>
+<script>
+    function createRandomItemStyle() {
+        return {
+            normal: {
+                color: 'rgb(' + [
+                    Math.round(Math.random() * 160),
+                    Math.round(Math.random() * 160),
+                    Math.round(Math.random() * 160)
+                ].join(',') + ')'
+            }
+        };
+    }
+
+    function prepareWordCloudChart() {
+        wordCloudChart = echarts.init(document.getElementById('wordCloudChart'));
+
+        wordCloudOption = {
+            tooltip: {},
+            series: [{
+                type: 'wordCloud',
+                wait: 0,
+                gridSize: 2,
+                sizeRange: [12, 50],
+                rotationRange: [-90, 90],
+                rotationStep: 45,
+                shape: 'triangle',
+                textStyle: {
+                    normal: {
+                        color: function () {
+                            // Random color
+                            return 'rgb(' + [
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160)
+                            ].join(',') + ')';
+                        }
+                    },
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowColor: '#333'
+                    }
+                },
+                data: [
+                    {
+                        name: "Project X",
+                        value: 10000,
+                        textStyle: {
+                            normal: {
+                                color: 'black'
+                            }
+                        }
+                    },
+                    {
+                        name: "Macys",
+                        value: 6181
+                    },
+                    {
+                        name: "Amy Schumer",
+                        value: 4386
+                    },
+                    {
+                        name: "Jurassic World",
+                        value: 4055
+                    },
+                    {
+                        name: "Charter Communications",
+                        value: 2467
+                    },
+                    {
+                        name: "Chick Fil A",
+                        value: 2244
+                    },
+                    {
+                        name: "Urgent",
+                        value: 1898
+                    },
+                    {
+                        name: "Pitch Perfect",
+                        value: 1484
+                    },
+                    {
+                        name: "Express",
+                        value: 1112
+                    },
+                    {
+                        name: "Home",
+                        value: 965
+                    },
+                    {
+                        name: "Johnny Depp",
+                        value: 847
+                    },
+                    {
+                        name: "Lena Dunham",
+                        value: 582
+                    },
+                    {
+                        name: "Lewis Hamilton",
+                        value: 555
+                    },
+                    {
+                        name: "KXAN",
+                        value: 550
+                    },
+                    {
+                        name: "Mary Ellen Mark",
+                        value: 462
+                    },
+                    {
+                        name: "Farrah Abraham",
+                        value: 366
+                    },
+                    {
+                        name: "Rita Ora",
+                        value: 360
+                    },
+                    {
+                        name: "Serena Williams",
+                        value: 282
+                    },
+                    {
+                        name: "NCAA baseball tournament",
+                        value: 273
+                    },
+                    {
+                        name: "Point Break",
+                        value: 265
+                    }]
+            }]
+        };
+
+        wordCloudChart.setOption(wordCloudOption);
+    }
+
+    function initAChart() {
+        // barChartChart = echarts.init(document.getElementById('barChart'));
+        //
+        // barChartOption = {
+        //     tooltip: {
+        //         trigger: 'axis',
+        //         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+        //             type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        //         }
+        //     },
+        //     legend: {
+        //         data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+        //     },
+        //     grid: {
+        //         left: '3%',
+        //         right: '4%',
+        //         bottom: '3%',
+        //         containLabel: true
+        //     },
+        //     xAxis: {
+        //         type: 'category',
+        //         data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        //
+        //     },
+        //     yAxis: {
+        //         type: 'value'
+        //     },
+        //     series: [
+        //         {
+        //             name: '直接访问',
+        //             type: 'bar',
+        //             stack: '总量',
+        //             label: {
+        //                 normal: {
+        //                     show: true,
+        //                     position: 'insideRight'
+        //                 }
+        //             },
+        //             data: [320, 302, 301, 334, 390, 330, 320]
+        //         },
+        //         {
+        //             name: '邮件营销',
+        //             type: 'bar',
+        //             stack: '总量',
+        //             label: {
+        //                 normal: {
+        //                     show: true,
+        //                     position: 'insideRight'
+        //                 }
+        //             },
+        //             data: [120, 132, 101, 134, 90, 230, 210]
+        //         },
+        //         {
+        //             name: '联盟广告',
+        //             type: 'bar',
+        //             stack: '总量',
+        //             label: {
+        //                 normal: {
+        //                     show: true,
+        //                     position: 'insideRight'
+        //                 }
+        //             },
+        //             data: [220, 182, 191, 234, 290, 330, 310]
+        //         },
+        //         {
+        //             name: '视频广告',
+        //             type: 'bar',
+        //             stack: '总量',
+        //             label: {
+        //                 normal: {
+        //                     show: true,
+        //                     position: 'insideRight'
+        //                 }
+        //             },
+        //             data: [150, 212, 201, 154, 190, 330, 410]
+        //         },
+        //         {
+        //             name: '搜索引擎',
+        //             type: 'bar',
+        //             stack: '总量',
+        //             label: {
+        //                 normal: {
+        //                     show: true,
+        //                     position: 'insideRight'
+        //                 }
+        //             },
+        //             data: [820, 832, 901, 934, 1290, 1330, 1320]
+        //         }
+        //     ]
+        // };
+        //
+        // barChartChart.setOption(barChartOption);
+
+        var dataWebsiteViewsChart = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            series: [
+                {"name": "Project", "data": [100, 80, 30, 50, 90, 20, 0]},
+                {"name": "PR/ Marketing Vision", "data": [20, 0, 30, 30, 20, 10, 0]},
+                {"name": "Q4 Growth Goal", "data": [20, 30, 30, 30, 20, 10, 0]},
+                {"name": "Daily", "data": [40, 30, 90, 0, 60, 10, 0]},
+            ]
+        };
+        var optionsWebsiteViewsChart = {
+            stackBars: true,
+            axisX: {
+                showGrid: false
+            },
+            low: 0,
+            high: 200,
+            chartPadding: {
+                top: 0,
+                right: 5,
+                bottom: 0,
+                left: 0
+            },
+            plugins: [
+                Chartist.plugins.legend()
+            ]
+        };
+        var responsiveOptions = [
+            ['screen and (max-width: 640px)', {
+                seriesBarDistance: 5,
+                axisX: {
+                    labelInterpolationFnc: function (value) {
+                        return value[0];
+                    }
+                }
+            }]
+        ];
+
+        var dailySalesChart = new Chartist.Bar('#barChart', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
+    }
+
+    function initRedarChart() {
+        redarChart = echarts.init(document.getElementById('redarChart'));
+
+        redarChartOption = {
+            // title: {
+            //     text: '基础雷达图'
+            // },
+            tooltip: {},
+            radar: {
+                // shape: 'circle',
+                name: {
+                    fontWeight: "bolder",
+                    fontSize: 16,
+                    textStyle: {
+                        color: '#000',
+                        // backgroundColor: '#999',
+                        borderRadius: 3,
+                        // padding: [3, 5]
+                    }
+                },
+                indicator: [
+                    {name: 'Meeting', max: 30},
+                    {name: 'Invite', max: 30},
+                    {name: 'Board Casting', max: 30},
+                    {name: 'Normal Email', max: 30},
+                    {name: 'Important Email', max: 30},
+                ]
+            },
+            series: [{
+                name: '',
+                type: 'radar',
+                // areaStyle: {normal: {}},
+                data: [
+                    {
+                        value: [13, 7, 2, 28, 5],
+                        name: 'Category'
+                    }
+                ]
+            }]
+        };
+
+        redarChart.setOption(redarChartOption);
+    }
+
+    function initPieChart() {
+        pieChart = echarts.init(document.getElementById('pieChart'));
+
+        pieChartOption = {
+            title: {},
+            tooltip: {
+                trigger: 'item',
+                formatter: "{b} : {c} ({d}%)"
+            },
+            legend: {
+                // orient: 'vertical',
+                // top: 'middle',
+                bottom: 10,
+                left: 'center',
+                data: ['TO', 'CC', 'BCC']
+            },
+            calculable: true,
+            series: [
+                {
+                    type: 'pie',
+                    radius: [30, 110],
+                    center: ['50%', '50%'],
+                    roseType: 'area',
+                    data: [
+                        {
+                            value: 780,
+                            name: 'TO',
+                            label: {
+                                show: true,
+                                fontWeight: "bolder",
+                                fontSize: 16,
+                                textStyle: {
+                                    color: '#000',
+                                }
+                            }
+                        },
+                        {
+                            value: 535, name: 'CC',
+                            label: {
+                                show: true,
+                                fontWeight: "bolder",
+                                fontSize: 16,
+                                textStyle: {
+                                    color: '#000',
+                                }
+                            }
+                        },
+                        {
+                            value: 110, name: 'BCC',
+                            label: {
+                                show: true,
+                                fontWeight: "bolder",
+                                fontSize: 16,
+                                textStyle: {
+                                    color: '#000',
+                                }
+                            }
+                        },
+                        {
+                            value: 305, name: 'SEND',
+                            label: {
+                                show: true,
+                                fontWeight: "bolder",
+                                fontSize: 16,
+                                textStyle: {
+                                    color: '#000',
+                                }
+                            }
+                        }
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        pieChart.setOption(pieChartOption);
+        // var data = {
+        //     labels: ['Bananas', 'Apples', 'Grapes'],
+        //     series: [20, 15, 40]
+        // };
+        //
+        // var options = {
+        //     labelInterpolationFnc: function (value) {
+        //         return value[0]
+        //     }
+        // };
+        //
+        // var responsiveOptions = [
+        //     ['screen and (min-width: 640px)', {
+        //         chartPadding: 30,
+        //         labelOffset: 100,
+        //         labelDirection: 'explode',
+        //         labelInterpolationFnc: function (value) {
+        //             return value;
+        //         }
+        //     }],
+        //     ['screen and (min-width: 1024px)', {
+        //         labelOffset: 80,
+        //         chartPadding: 20
+        //     }]
+        // ];
+        // new Chartist.Pie('#pieChart', data, options, responsiveOptions);
+    }
+
+    $(document).ready(function () {
+        prepareWordCloudChart();
+        initAChart();
+        initRedarChart();
+        initPieChart();
+    });
+
+</script>
+<script src="http://echarts.baidu.com/dist/echarts.min.js"></script>
+<script src="{%static "js/chartist-plugin-legend.js" %}"></script>
+<script src="{%static "js/echarts-wordcloud.min.js" %}"></script>
+</body>
+
+</html>

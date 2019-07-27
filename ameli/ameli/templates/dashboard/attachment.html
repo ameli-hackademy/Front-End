@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>
+        Ameli
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{%static "css/material-dashboard.css" %}">
+    <link rel="stylesheet" href="{%static "css/demo.css" %}">
+    <!--link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-treegrid/0.2.0/css/jquery.treegrid.min.css">
+    <link rel="stylesheet" href="{%static "css/button.css" %}">
+</head>
+
+<body class="">
+<div class="wrapper ">
+    <div class="sidebar" data-color="orange" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+        <!--
+          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+          Tip 2: you can also add an image using data-image tag
+      -->
+        <div class="logo">
+            <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+                Ameli
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li class="nav-item ">
+                    <a class="nav-link" href="{%url "index" %}">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{%url "dashboard:network" %}">
+                        <i class="material-icons">people</i>
+                        <p>Network</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{%url "dashboard:suggestion" %}">
+                        <i class="material-icons">highlight</i>
+                        <p>Suggestion</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{%url "dashboard:insight" %}">
+                        <i class="material-icons">wb_sunny</i>
+                        <p>Insight</p>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{%url "dashboard:attachment" %}">
+                        <i class="material-icons">attach_file</i>
+                        <p>Attachments</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+            <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <div class="container-fluid">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+          <form class="navbar-form">
+            <div class="input-group no-border">
+              <input type="text" value="" class="form-control" placeholder="Search...">
+              <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                <i class="material-icons">search</i>
+                <div class="ripple-container"></div>
+              </button>
+            </div>
+          </form>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#pablo">
+                <i class="material-icons">dashboard</i>
+                <p class="d-lg-none d-md-block">
+                  Stats
+                </p>
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">notifications</i>
+                <span class="notification">5</span>
+                <p class="d-lg-none d-md-block">
+                  Some Actions
+                </p>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Mike John responded to your email</a>
+                <a class="dropdown-item" href="#">You have 5 new tasks</a>
+                <a class="dropdown-item" href="#">You're now friend with Andrew</a>
+                <a class="dropdown-item" href="#">Another Notification</a>
+                <a class="dropdown-item" href="#">Another One</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">person</i>
+                <p class="d-lg-none d-md-block">
+                  Account
+                </p>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">Settings</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Log out</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header card-header-warning">
+                                <h4 class="card-title"><font size="5">Attachments</font></h4>
+                                <p class="card-category"><font size="2">to help you check the lastest attachment version
+                                    of different conversion subjects</font></p>
+                            </div>
+                            <div class="card-body table-responsive">
+                                <table id="table" class="table table-hover" data-row-attributes="rowAttributes"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <br/>
+                </div>
+                <div class="row">
+                    <!--button onclick="test()" class="btn-success"><i class="fa fa-download"></i>&nbsp;Download</button-->
+                    <a onclick="test()" class="button button-3d button-jumbo button-pill button-small"><i class="fa fa-download"></i>&nbsp;Download</a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.0/extensions/treegrid/bootstrap-table-treegrid.js"></script>
+<script src="https://cdn.bootcss.com/jquery-treegrid/0.2.0/js/jquery.treegrid.min.js"></script>
+<script type="text/javascript">
+    var $table = $('#table');
+    var data = JSON.parse(
+        '[{"id":1,"pid":0,"sender":"Mark BAYLY","name":"CR1040(Activity) Discussion","start_date":20190101,"end_date":20190601,"email_type":"New","email_detail":"abcd","permissionValue":"open:user:manage"},' +
+        '{"id":2,"pid":0,"sender":"Mark BAYLY","name":"CR9999 Discussion","start_date":20190101,"end_date":20190601,"email_type":"New","email_detail":"abcd","permissionValue":"open:user:manage"},' +
+        '{"id":3,"pid":1,"sender":"Mohd Ridzuan RAHIMMohd Ridzuan RAHIM","name":"External Design for CR1040 V1.2.pdf","start_date":20190601,"end_date":20190630,"email_type":"Reply","email_detail":"abcd","permissionValue":"open:system:manage"},' +
+        '{"id":4,"pid":1,"sender":"Amar Hakim ZABARNI","name":"Activity BRD V1.3.doc","start_date":20190601,"end_date":20190601,"email_type":"New","email_detail":"abcd","permissionValue":"open:user:add"},' +
+        '{"id":5,"pid":4,"sender":"Amar Hakim ZABARNI","name":"Activity BRD V1.3.doc","start_date":20190601,"end_date":20190601,"email_type":"New","email_detail":"abcd","permissionValue":"open:user:add"},' +
+        '{"id":6,"pid":4,"sender":"Amy Star","name":"CR1040 BRD V1.2.doc","start_date":20190522,"end_date":20190522,"email_type":"New","email_detail":"abcd","permissionValue":"open:user:edit"},' +
+        '{"id":7,"pid":4,"sender":"Laila Ericka Fabre JARINA","name":"Activity on Every Month end BRD V1.1.doc","start_date":20190101,"end_date":20190101,"email_type":"New","email_detail":"abcd","permissionValue":"open:user:del"},' +
+        '{"id":8,"pid":3,"sender":"Mohd Ridzuan RAHIMMohd Ridzuan RAHIM","name":"External Design for CR1040 V1.2.pdf","start_date":20190630,"end_date":20190630,"email_type":"Reply","email_detail":"abcd","permissionValue":"open:systemconfig:manage"},' +
+        '{"id":9,"pid":3,"sender":"Aries Espinola RODELAS","name":"External Design for Activity on every month end V1.1.pdf","start_date":20190601,"end_date":20190630,"email_type":"New","email_detail":"abcd","permissionValue":"open:system:manage"},' +
+        '{"id":10,"pid":2,"sender":"Sze Chee THAM","name":"CR9999 Annual Party BRD V1.3.doc","start_date":20190601,"end_date":20190601,"email_type":"Forward","email_detail":"abcd","permissionValue":"open:user:add"},' +
+        '{"id":11,"pid":10,"sender":"Sze Chee THAM","name":"CR9999 Annual Party  BRD V1.3.doc","start_date":20190601,"end_date":20190601,"email_type":"Forward","email_detail":"abcd","permissionValue":"open:user:add"},' +
+        '{"id":12,"pid":10,"sender":"Angus K K Tan","name":"Annual Party BRD V1.2.doc","start_date":20190522,"end_date":20190522,"email_type":"New","email_detail":"abcd","permissionValue":"open:user:edit"},' +
+        '{"id":13,"pid":10,"sender":"Angus K K Tan","name":"annual party BRD V1.1.doc","start_date":20190101,"end_date":20190101,"email_type":"New","email_detail":"abcd","permissionValue":"open:user:del"},' +
+        '{"id":14,"pid":2,"sender":"Darren Wan Huat GOH","name":"Annual party breakdown CR9999.xlsx","start_date":20190630,"end_date":20190630,"email_type":"New","email_detail":"abcd","permissionValue":"open:systemconfig:manage"},' +
+        '{"id":15,"pid":2,"sender":"Davin Chen","name":"MileStone CR9999.vsd","start_date":20190601,"end_date":20190601,"email_type":"New","email_detail":"abcd","permissionValue":"open:log:manage"}]');
+
+    $(function() {
+
+        //output data to console
+        console.log(data);
+
+        $table.bootstrapTable({
+            data:data,
+            idField: 'id',
+            dataType:'jsonp',
+            search: true,
+            theadClasses: "thead-light",
+            // classes: "table table-bordered table-striped table-sm table-dark",
+            // theadClasses: "text-primary"
+            // sortable: true,
+            // sortName: "name",
+            // sortOrder: "desc",
+            // pageSize: "5",
+            columns: [
+                { field: 'check',  checkbox: true, formatter: function (value, row, index) {
+                        if (row.check == true) {
+                            // console.log(row.serverName);
+                            //setup checked
+                            return {  checked: true };
+                        }
+                    }
+                },
+                { field: 'name',  title: 'Attachment Name', formatter:'NameFormatter' },
+             //   { field: 'status',  title: 'Status', sortable: true,  align: 'center', formatter: 'statusFormatter'  },
+                { field: 'sender',  title: 'Sender',formatter:'SenderFormatter' },
+                { field: 'end_date', title: 'Date', align: 'center' ,formatter:'DateFormatter' },
+                { field: 'email_type',  title: 'Email Type',   align: 'center' ,formatter:'SenderFormatter'  },
+             //   { field: 'email_detail', title: 'Detail', align: 'center', formatter: 'EmailDetailFormatter'  },
+                { field: 'pid', title: 'Action', align: 'center', events : operateEvents, formatter: 'operateFormatter' },
+            ],
+
+            // bootstrap-table-treegrid.js plugin setup -- start
+
+            //treeShowField
+            treeShowField: 'name',
+            //parentIdField
+            parentIdField: 'pid',
+
+
+            onResetView: function(data) {
+                //console.log('load');
+                $table.treegrid({
+                    initialState: 'collapsed',// collaspe all leaves
+                    //initialState: 'expanded',// expand all leaves
+                    treeColumn: 1,
+                    // expanderExpandedClass: 'glyphicon glyphicon-minus',  //icon style
+                    // expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                    onChange: function() {
+                        $table.bootstrapTable('resetWidth');
+                    }
+                });
+
+                //expand 1st leaf
+                $table.treegrid('getRootNodes').treegrid('expand');
+
+            },
+            onCheck:function(row){
+                var datas = $table.bootstrapTable('getData');
+                // selct child
+                selectChilds(datas,row,"id","pid",true);
+
+                // select parent
+                selectParentChecked(datas,row,"id","pid")
+
+                // refresh
+                $table.bootstrapTable('load', datas);
+            },
+
+            onUncheck:function(row){
+                var datas = $table.bootstrapTable('getData');
+                selectChilds(datas,row,"id","pid",false);
+                $table.bootstrapTable('load', datas);
+            },
+            // bootstrap-table-treetreegrid.js plugin setup -- end
+        });
+    });
+
+    // format button
+    function operateFormatter(value, row, index) {
+        if (value != 0)
+        {
+            if (row.pid == 1)
+            {
+                return [
+            '<button type="button" class="RoleOfview button button-glow button-border button-rounded button-primary button-tiny" style="margin-right:15px;"><i class="fa fa-eye" ></i>&nbsp;View</button>',
+            '<button type="button" class="RoleOfdownload button button-glow button-border button-rounded button-primary button-tiny" style="margin-right:15px;"><i class="fa fa-download" ></i>&nbsp;Download</button>',
+            ].join('');
+            }
+            else if (row.pid == 2)
+            {
+                return [
+            '<button type="button" class="RoleOfview button button-glow button-border button-rounded button-primary button-tiny" style="margin-right:15px;"><i class="fa fa-eye" ></i>&nbsp;View</button>',
+            '<button type="button" class="RoleOfdownload button button-glow button-border button-rounded button-primary button-tiny" style="margin-right:15px;"><i class="fa fa-download" ></i>&nbsp;Download</button>',
+            ].join('');
+            }
+            else {
+             return [
+            '<button type="button" class="RoleOfview button button-pill button-tiny" style="margin-right:15px;"><i class="fa fa-eye" ></i>&nbsp;View</button>',
+            '<button type="button" class="RoleOfdownload button button-pill button-tiny" style="margin-right:15px;"><i class="fa fa-download" ></i>&nbsp;Download</button>',
+            ].join('');
+            }
+
+        }
+        else
+        {
+        return ' ';
+        }
+    }
+    // format type
+    function typeFormatter(value, row, index) {
+        if (value === 'menu') {  return 'menu';  }
+        if (value === 'button') {  return 'button'; }
+        if (value === 'api') {  return 'api'; }
+        return '-';
+    }
+    // format status
+    function statusFormatter(value, row, index) {
+        if (value === 1) {
+            return '<span class="label label-success">Active</span>';
+        } else {
+            return '<span class="label label-default">Dormant</span>';
+        }
+    }
+
+    // format Name
+    function NameFormatter(value, row, index) {
+        if (row.pid == 0 ) {
+           //  return '<font color = "dark">' + value + '</font>';
+           return '<font color = "dark"><b>' + value + '</b></font>';
+        }
+        else if (row.pid == 1) {
+           //  return '<font color = "blue">' + value + '</font>';
+           return '<strong>' + value + '</string>';
+        }
+        else if (row.pid == 2) {
+             return '<strong>' + value + '</string>';
+        }
+        else {
+            return '<font color = "grey">' + value + '</font>';
+        }
+    }
+
+    // format blank when pid =0
+    function SenderFormatter(value, row, index) {
+        if (row.pid == 0 ) {
+             return ' ';
+        }
+        else if (row.pid == 1) {
+            return '<strong>' + value + '</string>';
+        }
+        else if (row.pid == 2) {
+             return '<strong>' + value + '</string>';
+        }
+        else {
+            return '<font color = "grey">' + value + '</font>';
+        }
+    }
+
+    // format date
+    function DateFormatter(value, row, index) {
+        var str1 = value.toString();
+        var str = str1.slice(0,4) + '/' + str1.slice(4,6) + '/' + str1.slice(6,8);
+       // var da = new Date(str).format('yyyy-MM-dd');
+        if (row.pid == 0 ) {
+             return ' ';
+        }
+        else if (row.pid == 1) {
+            return '<strong>' + str + '</string>';
+        }
+        else if (row.pid == 2) {
+             return '<strong>' + str + '</string>';
+        }
+        else {
+            return '<font color = "grey">' + str + '</font>';
+        }
+    }
+
+    // email_type
+    function EmailTypeFormatter(value, row, index) {
+        if (row.pid == 0) {
+            return ' ';
+        }
+
+        else if (value == "Reply") {
+            return '<span class="label label-info">Reply</span>';
+        }
+        else if (value == "New")
+        {
+            return '<span class="label label-success">New</span>';
+        }
+        else {
+            return '<span class="label label-warning">Forward</span>';
+        }
+    }
+
+    //email_detail
+    function EmailDetailFormatter(value, row, index) {
+        if (value != 0)
+        {
+        return [
+            '<button type="button" class="RoleOfview btn-small  btn-primary" style="margin-right:15px;"><i class="fa fa-plus" ></i>&nbsp;Detail</button>',
+            ].join('');
+        }
+        else
+        {
+        return ' ';
+        }
+    }
+
+    //function on operation button
+    window.operateEvents = {
+        'click .RoleOfview': function (e, value, row, index) {
+            view(row.id);
+        },
+        'click .RoleOfdelete': function (e, value, row, index) {
+            del(row.id);
+        },
+         'click .RoleOfdownload': function (e, value, row, index) {
+            download(row.id);
+        }
+    };
+
+
+</script>
+<script>
+    /**
+     * select all children once select parent
+     * @param datas :data
+     * @param row : current row
+     * @param id id : current id
+     * @param pid : current parent id
+     */
+    function selectChilds(datas,row,id,pid,checked) {
+        for(var i in datas){
+            if(datas[i][pid] == row[id]){
+                datas[i].check=checked;
+                selectChilds(datas,datas[i],id,pid,checked);
+            };
+        }
+    }
+
+    function selectParentChecked(datas,row,id,pid){
+        for(var i in datas){
+            if(datas[i][id] == row[pid]){
+                datas[i].check=true;
+                selectParentChecked(datas,datas[i],id,pid);
+            };
+        }
+    }
+
+    function test() {
+        var selRows = $table.bootstrapTable("getSelections");
+        if(selRows.length == 0){
+            alert("please select at least one row");
+            return;
+        }
+
+        var postData = "";
+        $.each(selRows,function(i) {
+            postData +=  this.id;
+            if (i < selRows.length - 1) {
+                postData += "， ";
+            }
+        });
+        alert("the id you selected is："+postData);
+
+    }
+
+    function view(id) {
+        alert("view function , id = " + id);
+    }
+    function del(id) {
+        alert("del function , id = " + id);
+    }
+    function download(id) {
+        alert("download function , id = " + id);
+    }
+
+
+
+
+</script>
+<script>
+  function rowAttributes(row, index) {
+    return {
+      'data-toggle': 'popover',
+      'data-placement': 'bottom',
+      'data-trigger': 'hover',
+      'data-content': [
+        'Name: ' + row.name,
+        'sent by : ' + row.sender
+      ].join(', ')
+    }
+  }
+  $(function() {
+    $('#table').on('post-body.bs.table', function (e) {
+      $('[data-toggle="popover"]').popover()
+    })
+  })
+
+
+</script>
+</html>
